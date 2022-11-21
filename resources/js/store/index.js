@@ -1,11 +1,14 @@
 import { createStore } from "vuex";
 
+const user = JSON.parse(localStorage.getItem("user"));
 const store = createStore({
     state: {
-        user: {
-            data: {},
-            token: null,
-        },
+        user: user
+            ? user
+            : {
+                  data: {},
+                  token: null,
+              },
     },
 });
 

@@ -53,7 +53,11 @@ export default function usePosts() {
             .post("api/login", data)
 
             .then((res) => {
+                console.log({ res });
                 store.state.user.token = res.data.token;
+                if (res.data) {
+                    localStorage.setItem("user", JSON.stringify(res.data));
+                }
                 router.push({ name: "postList" });
                 console.log(store.state.user.token);
             })
@@ -81,6 +85,13 @@ export default function usePosts() {
             });
     };
 
+    //Logout user
+    const logout = () => {
+        store.state.user = null;
+        localStorage.removeItem("user");
+        router.push({ name: "home" });
+    };
+
     return {
         posts,
         post,
@@ -91,5 +102,6 @@ export default function usePosts() {
         UpdatePost,
         signin,
         signup,
+        logout,
     };
 }
